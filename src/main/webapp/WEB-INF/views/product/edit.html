@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/product/layout :: head">
+</head>
+<body>
+<h1>Edit product</h1>
+<p>
+    <a href="/products">product List</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<div id="form">
+    <form th:action="@{/edit-product}" th:object="${product}" method="post">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input th:type="text" th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <td>Product type</td>
+                <td>
+                    <select th:field="*{productType}">
+                        <option th:each="p : ${productTypes}" th:value="${p.id}" th:text="${p.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input th:type="text" th:field="*{price}"></td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td><input th:type="text" th:field="*{quantity}"></td>
+            </tr>
+            <tr>
+                <td>Create Date</td>
+                <td><input th:type="text" th:field="*{createDate}"></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input th:type="text" th:field="*{description}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Update Employee">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<footer th:replace="/product/layout :: footer"></footer>
+</body>
+</html>
