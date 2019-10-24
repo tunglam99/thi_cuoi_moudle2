@@ -16,6 +16,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "productType_id")
     private ProductType productType;
+    private String image;
 
     @Size(min = 1)
     private Double price;
@@ -26,19 +27,21 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, ProductType productType, Double price, Double quantity, LocalDate createDate, String description) {
+    public Product(String name, ProductType productType,String image, Double price, Double quantity, LocalDate createDate, String description) {
         this.name = name;
         this.productType = productType;
+        this.image = image;
         this.price = price;
         this.quantity = quantity;
         this.createDate = createDate;
         this.description = description;
     }
 
-    public Product(Long id,String name, ProductType productType, Double price, Double quantity, LocalDate createDate, String description) {
+    public Product(Long id,String name, ProductType productType,String image, Double price, Double quantity, LocalDate createDate, String description) {
         this.id = id;
         this.name = name;
         this.productType = productType;
+        this.image = image;
         this.price = price;
         this.quantity = quantity;
         this.createDate = createDate;
@@ -99,5 +102,13 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -106,5 +106,12 @@ public class ProductController {
         return "redirect:/products";
     }
 
+    @RequestMapping("/view-product/{id}")
+    public ModelAndView view(@PathVariable long id){
+        Product product = productService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("/product/view","product", product);
+        return modelAndView;
+    }
+
 
 }

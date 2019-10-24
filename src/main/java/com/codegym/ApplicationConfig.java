@@ -50,6 +50,7 @@ import java.util.Properties;
 @EnableSpringDataWebSupport
 @ComponentScan("com.codegym")
 @EnableJpaRepositories("com.codegym.repository")
+@PropertySource("classpath:global_config_app.properties")
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     @Autowired
@@ -60,6 +61,35 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    // Cấu hình để sử dụng các file nguồn tĩnh (css, image, javascript..)
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        String fileUpload = env.getProperty("file_upload").toString();
+
+        // Image resource.
+        registry.addResourceHandler("/i/**") //
+                .addResourceLocations("file:" + fileUpload);
+
+        // Css resource.
+        registry.addResourceHandler("/styles/**") //
+                .addResourceLocations("/WEB-INF/resources/css/");
+
+    }
+
+    //Config FileUpload
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getResolver() throws IOException {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+
+        //Set the maximum allowed size (in bytes) for each individual file.
+        resolver.setMaxUploadSizePerFile(5242880);//5MB
+
+        //You may also set other available properties.
+
+        return resolver;
     }
 
     @Bean
